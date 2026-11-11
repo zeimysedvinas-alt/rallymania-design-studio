@@ -7,7 +7,7 @@ retro:"Vintage rally motorsport illustration, classic rally typography, aged rac
 seasonal:"Rally driver mascot in a seasonal scene with relevant props and rally atmosphere, maintaining the established Rallymania mascot identity and sticker illustration style."
 };
 function toast(t){let el=$('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200)}
-document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));}));
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));}));
 $('makePrompt').onclick=()=>{
  const kind=$('kind').value,theme=$('theme').value||'Lithuanian rally culture',slogan=$('slogan').value||'original short Lithuanian rally slogan',subject=$('subject').value||'Rallymania helmeted driver mascot';
  const transparent=$('transparent').checked;
@@ -33,7 +33,9 @@ function drawPoster(){
  ctx.fillStyle='#080808';ctx.font='900 55px Arial';ctx.fillText(($('ptype').value||'MARŠKINĖLIAI'),w/2,1047);
  ctx.fillStyle='#ff3b13';ctx.save();ctx.translate(w/2,1200);ctx.rotate(-.02);ctx.fillRect(-330,-75,660,150);ctx.restore();
  ctx.fillStyle='#fff';ctx.font='1000 105px Arial';ctx.fillText(price+' €',w/2,1235);
- ctx.fillStyle='#fff';ctx.font='bold 29px Arial';ctx.fillText('RALLYMANIA.SHOP',w/2,1310);
+ const shopLogo=new Image();shopLogo.src='assets/rallymania-shop-logo.png';
+ if(shopLogo.complete && shopLogo.naturalWidth){ctx.drawImage(shopLogo,(w-330)/2,1210,330,125);}
+ else {ctx.fillStyle='#fff';ctx.font='bold 29px Arial';ctx.fillText('RALLYMANIA.SHOP',w/2,1310);}
 }
 $('art').onchange=e=>{const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f);artImg=new Image();artImg.onload=()=>{drawPoster();URL.revokeObjectURL(u)};artImg.src=u;};
 $('render').onclick=()=>{drawPoster();toast('Reklamos maketas atnaujintas.');};
